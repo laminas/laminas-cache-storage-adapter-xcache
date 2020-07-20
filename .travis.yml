@@ -8,6 +8,9 @@ env:
   global:
     - COMPOSER_ARGS="--no-interaction"
     - COVERAGE_DEPS="php-coveralls/php-coveralls"
+    - TESTS_LAMINAS_CACHE_XCACHE_ADMIN_AUTH=true
+    - TESTS_LAMINAS_CACHE_XCACHE_ADMIN_USER=travis
+    - TESTS_LAMINAS_CACHE_XCACHE_ADMIN_PASS=test
 
 matrix:
   fast_finish: true
@@ -55,6 +58,13 @@ before_install:
   - if [[ $TEST_COVERAGE != 'true' ]]; then phpenv config-rm xdebug.ini || return 0 ; fi
 
 install:
+  - git clone https://github.com/lighttpd/xcache.git
+      && (
+        cd xcache
+        && git checkout $(git rev-list --tags --max-count=1)
+        && phpize && ./configure --enable-xcache && make install
+      );
+  - phpenv config-add .ci/xcache.ini
   - travis_retry composer install $COMPOSER_ARGS --ignore-platform-reqs
   - if [[ $DEPS == 'latest' ]]; then travis_retry composer update $COMPOSER_ARGS ; fi
   - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi

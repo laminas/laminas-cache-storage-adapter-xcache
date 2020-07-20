@@ -14,4 +14,9 @@
             <directory suffix=".php">./src</directory>
         </whitelist>
     </filter>
+    <php>
+        <env name="TESTS_LAMINAS_CACHE_XCACHE_ADMIN_AUTH" value="false" />
+        <env name="TESTS_LAMINAS_CACHE_XCACHE_ADMIN_USER" value="" />
+        <env name="TESTS_LAMINAS_CACHE_XCACHE_ADMIN_PASS" value="" />
+    </php>
 </phpunit>

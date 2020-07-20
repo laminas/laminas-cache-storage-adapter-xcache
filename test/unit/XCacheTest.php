@@ -20,10 +20,6 @@ class XCacheTest extends CommonAdapterTest
 
     public function setUp()
     {
-        if (getenv('TESTS_LAMINAS_CACHE_XCACHE_ENABLED') != 'true') {
-            $this->markTestSkipped('EnableTESTS_LAMINAS_CACHE_XCACHE_ENABLED  to run this test');
-        }
-
         if (! extension_loaded('xcache')) {
             try {
                 new Cache\Storage\Adapter\XCache();
