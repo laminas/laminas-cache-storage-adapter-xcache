@@ -19,6 +19,9 @@
         "laminas/laminas-serializer": "^2.9",
         "squizlabs/php_codesniffer": "^2.7"
     },
+    "suggest": {
+        "ext-xcache": "XCache, to use the XCache storage adapter"
+    },
     "config": {
         "sort-packages": true
     },
